@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>For You, Wherever You Land ✨</title>
+  
+  <!-- Meta & Social Sharing Preview (WhatsApp, iMessage, Instagram) -->
+  <meta name="description" content="Wherever you land, we're under the same sky. A small piece of the sky for Tisha.">
+  <meta property="og:title" content="For You, Wherever You Land ✨">
+  <meta property="og:description" content="Wherever you land, we're under the same sky. Tap a star whenever you need it.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0f1130">
+  
+  <!-- Star Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0c24;
+      --bg-mid: #14173d;
+      --bg-soft: #1d2154;
+      --gold: #f0c36d;
+      --gold-soft: #dfb260;
+      --gold-glow: rgba(240, 195, 109, 0.45);
+      --rose: #e8919b;
+      --rose-glow: rgba(232, 145, 155, 0.55);
+      --paper: #f7f1e7;
+      --paper-border: #e8dfcf;
+      --ink: #2b2838;
+      --ink-muted: #5e5a70;
+      --text-light: #f5f2eb;
+      --text-muted: #a4a8c7;
+      --card-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-deep);
+      color: var(--text-light);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Cosmos Background */
+    body {
+      background:
+        radial-gradient(circle at 50% 15%, rgba(41, 47, 107, 0.5) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(35, 25, 65, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 80% 60%, rgba(232, 145, 155, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+      background-attachment: fixed;
+    }
+
+    #stars-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .twinkle {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: tw 4s ease-in-out infinite;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes tw {
+      0%, 100% { opacity: 0.12; transform: scale(0.8); }
+      50% { opacity: 0.95; transform: scale(1.2); }
+    }
+
+    /* Shooting Star */
+    .shooting-star {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 120px;
+      height: 1.5px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(240, 195, 109, 0.4), transparent);
+      transform: rotate(-35deg);
+      opacity: 0;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px #fff);
+      animation: shoot 9s linear infinite;
+    }
+    .shooting-star:nth-child(2) {
+      top: 25%;
+      left: 75%;
+      width: 90px;
+      animation-delay: 4.5s;
+    }
+
+    @keyframes shoot {
+      0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+      2% { opacity: 1; }
+      7% { transform: translate(-300px, 200px) rotate(-35deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* Main Container */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      width: 100%;
+      animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      color: var(--gold-soft);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(34px, 7vw, 46px);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text-light);
+      letter-spacing: -0.5px;
+    }
+
+    h1 span {
+      color: var(--gold);
+      font-style: normal;
+      text-shadow: 0 0 25px rgba(240, 195, 109, 0.4);
+    }
+
+    .sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .countdown-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 8px 18px;
+      background: rgba(240, 195, 109, 0.1);
+      border: 1px solid rgba(240, 195, 109, 0.25);
+      border-radius: 999px;
+      color: var(--gold);
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Sky Interactive Constellation Area */
+    .sky {
+      position: relative;
+      height: 440px;
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto 30px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 50%, rgba(29, 33, 84, 0.45) 0%, transparent 75%);
+    }
+
+    /* Star Notes */
+    .note-star {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 2;
+    }
+
+    .note-star:hover, .note-star:focus-visible {
+      transform: translate(-50%, -50%) scale(1.35);
+      outline: none;
+    }
+
+    .note-star .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 16px 4px var(--gold-glow);
+      animation: pulse 2.8s ease-in-out infinite;
+      position: relative;
+    }
+
+    .note-star .dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px dashed rgba(240, 195, 109, 0.4);
+      animation: spin 8s linear infinite;
+    }
+
+    .note-star .label {
+      position: absolute;
+      top: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12.5px;
+      color: #dfb260;
+      white-space: nowrap;
+      opacity: 0.85;
+      background: rgba(10, 12, 36, 0.85);
+      padding: 3px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(240, 195, 109, 0.2);
+      pointer-events: none;
+      transition: all 0.2s ease;
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+    }
+
+    .note-star:hover .label, .note-star:focus-visible .label {
+      opacity: 1;
+      transform: translateX(-50%) translateY(2px);
+      background: rgba(15, 17, 48, 0.95);
+      border-color: var(--gold);
+    }
+
+    /* Central Big Star */
+    .big-star {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .big-star:hover, .big-star:focus-visible {
+      transform: translate(-50%, -50%) scale(1.18);
+      outline: none;
+    }
+
+    .big-star .glow-core {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 35px 12px var(--rose-glow), 0 0 12px 2px #ffffff;
+      animation: bigPulse 3.2s ease-in-out infinite;
+      position: relative;
+    }
+
+    .big-star .glow-core::after {
+      content: '★';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .big-star .label {
+      position: absolute;
+      top: 46px;
+      font-family: 'Caveat', cursive;
+      font-size: 21px;
+      font-weight: 700;
+      color: #f7a8b1;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(232, 145, 155, 0.6);
+      background: rgba(15, 17, 48, 0.8);
+      padding: 2px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(232, 145, 155, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 22px 6px rgba(240, 195, 109, 0.8); }
+    }
+
+    @keyframes bigPulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 30px 10px var(--rose-glow); }
+      50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 45px 18px var(--rose-glow), 0 0 20px 4px #ffffff; }
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 7, 20, 0.78);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Paper Card */
+    .card {
+      background: var(--paper);
+      color: var(--ink);
+      max-width: 480px;
+      width: 100%;
+      border-radius: 8px;
+      padding: 42px 34px 34px;
+      position: relative;
+      box-shadow: var(--card-shadow);
+      max-height: 85vh;
+      overflow-y: auto;
+      border: 1px solid var(--paper-border);
+      background-image: radial-gradient(#ece4d5 1px, transparent 1px);
+      background-size: 20px 20px;
+      transform: scale(0.92) translateY(10px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.open .card {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Custom Scrollbar for Card */
+    .card::-webkit-scrollbar {
+      width: 5px;
+    }
+    .card::-webkit-scrollbar-thumb {
+      background: #d8cebc;
+      border-radius: 10px;
+    }
+
+    .card .tag {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      color: #a4762c;
+      display: block;
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20.5px;
+      line-height: 1.68;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+
+    .card .sign {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      color: var(--ink);
+      margin-top: 24px;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 1;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(0, 0, 0, 0.12);
+      transform: rotate(90deg);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 16px;
+      opacity: 0.85;
+    }
+
+    footer p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Mobile Tweaks */
+    @media (max-width: 600px) {
+      .wrap { padding: 40px 16px 60px; }
+      .sky { height: 390px; }
+      .card { padding: 36px 24px 28px; }
+      .card p { font-size: 19px; line-height: 1.6; }
+      .note-star .label { font-size: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .twinkle, .note-star .dot, .big-star .glow-core, .shooting-star {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Dynamic Stars Container -->
+<div id="stars-bg">
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+</div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">before you go, Tisha</span>
+    <h1>Wherever you land,<br>we're under the <span>same sky</span></h1>
+    <p class="sub">A few things for the nights you need them. Tap a star to open it — and the bigger one, when you're ready, for the long one.</p>
+    <div class="countdown-badge" id="countdown"></div>
+  </header>
+
+  <!-- Interactive Constellation -->
+  <div class="sky" id="sky" role="region" aria-label="Constellation of notes">
+    <button class="big-star" id="bigStar" aria-label="Open the letter: open me first">
+      <div class="glow-core"></div>
+      <span class="label">open me first</span>
+    </button>
+  </div>
+
+  <footer>
+    <p>Made with love by Aryan, for Tisha — August 2026</p>
+  </footer>
+</div>
+
+<!-- Letter / Note Modal -->
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="cardTag">
+  <div class="card">
+    <button class="close-btn" id="closeBtn" aria-label="Close dialog">&times;</button>
+    <span class="tag" id="cardTag"></span>
+    <div id="cardBody"></div>
+  </div>
+</div>
+
+<script>
+  // Countdown to next visit
+  (function initCountdown() {
+    const meetDate = new Date('2026-09-13T00:00:00');
+    const today = new Date();
+    const diffTime = meetDate - today;
+    const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const cd = document.getElementById('countdown');
+    
+    if (daysLeft > 0) {
+      cd.innerHTML = '✨ ' + daysLeft + " days until we're 200km closer — September 13";
+    } else if (daysLeft === 0) {
+      cd.innerHTML = "✨ Today is September 13. Go find him.";
+    } else {
+      cd.innerHTML = "✨ Together under the same sky.";
+    }
+  })();
+
+  // Populate background starfield
+  (function initStars() {
+    const bg = document.getElementById('stars-bg');
+    const count = window.innerWidth < 600 ? 55 : 90;
+    
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('div');
+      s.className = 'twinkle';
+      const size = Math.random() * 2.5 + 1;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.top = (Math.random() * 100) + '%';
+      s.style.animationDelay = (Math.random() * 4) + 's';
+      s.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+      bg.appendChild(s);
+    }
+  })();
+
+  // Notes data
+  const notes = [
+    {
+      label: "when you miss home",
+      tag: "open when you miss home",
+      text: [
+        "I know you're excited to leave home too, jalapeño — but excited and homesick can both be true in the same week.",
+        "St. Xavier's is going to be yours before you know it. You just have to survive the part where it still feels new."
+      ]
+    },
+    {
+      label: "before an exam",
+      tag: "open before your first exam",
+      text: [
+        "You've been ready for this longer than you think.",
+        "Drink some water, breathe, and text me after. I'll be annoyingly proud either way."
+      ]
+    },
+    {
+      label: "settling in",
+      tag: "open when you're not sure you're settling in",
+      text: [
+        "It's normal to not feel at home on day three. Give it time — you're good at this, even when it doesn't feel like it yet.",
+        "You made a guy who got ignored the first time he saw you fall for you anyway. You can make a new campus like you too."
+      ]
+    },
+    {
+      label: "a hard day",
+      tag: "open on a hard day",
+      text: [
+        "This note isn't going to fix it, and that's not its job. You don't have to be fine right now. Call me whenever, any hour.",
+        "Remember: ups and downs, still not lacking behind them. That's just what we do."
+      ]
+    },
+    {
+      label: "you're proud",
+      tag: "open when you're proud of yourself",
+      text: [
+        "Good. Sit in it for a second before you're already onto the next thing — you always do that.",
+        "I'm proud of you too. Very, very proud."
+      ]
+    },
+    {
+      label: "you miss me",
+      tag: "open when you miss me",
+      text: [
+        "Okay, real question: do you miss me or not? No pressure, just wondering. Obviously I miss you.",
+        "200km isn't nothing, but it's not forever either — see you September 13."
+      ]
+    }
+  ];
+
+  // Responsive positions for stars in constellation
+  const positions = [
+    { left: '16%', top: '14%' },
+    { left: '82%', top: '18%' },
+    { left: '12%', top: '56%' },
+    { left: '86%', top: '58%' },
+    { left: '26%', top: '86%' },
+    { left: '74%', top: '88%' }
+  ];
+
+  const sky = document.getElementById('sky');
+
+  notes.forEach((n, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'note-star';
+    btn.style.left = positions[i].left;
+    btn.style.top = positions[i].top;
+    btn.setAttribute('aria-label', 'Open note: ' + n.label);
+    btn.innerHTML = '<div class="dot"></div><span class="label">' + n.label + '</span>';
+    btn.addEventListener('click', () => openCard(n.tag, n.text, false));
+    sky.appendChild(btn);
+  });
+
+  const letterText = [
+    "Tisha, I wanted to give you something you'd actually keep, not just something you'd read once and close.",
+    "From the day I saw you for the first time till today, we've had a lot of ups and downs — and we're still not lacking behind them. Still stuck on my jalapeño, the girl who fully ignored me the first time I saw her. Look at us now.",
+    "You're about to build a whole life somewhere I'm not standing next to you, and I'm so excited for you it's a little hard to also be sad about it. So I'm going to be both, at the same time, and you should let me.",
+    "Go be loud at St. Xavier's. Get lost on campus in week one. Say yes to things that scare you a bit. Text me the small, boring stuff — that's usually my favorite part of the day anyway.",
+    "This isn't the end of anything. It's just us, 200km apart, working toward the life we've always dreamed of. See you September 13. I've got you from here."
+  ];
+
+  document.getElementById('bigStar').addEventListener('click', () => {
+    openCard('a letter, for whenever you want it', letterText, true);
+  });
+
+  const modal = document.getElementById('modal');
+  const cardTag = document.getElementById('cardTag');
+  const cardBody = document.getElementById('cardBody');
+  const closeBtn = document.getElementById('closeBtn');
+
+  function openCard(tag, paragraphs, isLetter) {
+    cardTag.textContent = tag;
+    cardBody.innerHTML = paragraphs.map(p => '<p>' + p + '</p>').join('');
+    if (isLetter) {
+      const sign = document.createElement('div');
+      sign.className = 'sign';
+      sign.textContent = '— Aryan';
+      cardBody.appendChild(sign);
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+</script>
+
+</body>
+</html>
